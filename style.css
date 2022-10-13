@@ -1,0 +1,28 @@
+* { 
+    box-sizing: border-box;   
+}
+
+body { 
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container { 
+    height: 256px;
+    width: 256px;
+    background-color: aqua;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.new { 
+    background-color: green;
+    height: 16px;
+    width: 16px;
+    border: purple;
+    border: 1px solid red;
+}
+
+
