@@ -1,53 +1,92 @@
-const container = document.querySelector('.container');
+let blackButtonPressed = false;
+let randomButtonPressed = false;
+let eraseButtonPressed = false;
 
-let blackButtonPressed = false 
-let randomButtonPressed = false 
-let eraseButtonPressed = false 
+const container = document.querySelector(".container");
+let gridSize = prompt("Enter a value");
+const buttons = document.querySelectorAll(".btn");
 
+const blackButton = document.querySelector("#blackButton");
+const randomButton = document.querySelector("#randomButton");
+const eraseButton = document.querySelector("#eraseButton");
 
-for (i = 0; i < 256; i++) { 
-    const div = document.createElement("div");
-    container.appendChild(div);
-    div.classList.add('new');  
-    div.addEventListener('mouseenter', () => {if (blackButtonPressed === true) {
-        div.style.backgroundColor = "black" 
-    } else if (eraseButtonPressed === true){ 
-        div.style.backgroundColor = "white"
-    } else if (randomButtonPressed === true) { div.style.backgroundColor = randomColor()}
-    else {return}
-    })} 
-        
+function randomColor() {
+  rc = "#";
+  for (i = 0; i < 6; i++) {
+    rc += Math.floor(Math.random() * 16).toString(16);
+  }
+  return rc;
+}
 
-      const blackButton = document.querySelector('#blackButton')
-      const randomButton = document.querySelector('#randomButton')
-      const eraseButton = document.querySelector('#eraseButton')
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", () => {
+    if (buttons[i].id === "blackButton") {
+      blackButtonPressed = true;
+      randomButtonPressed = false;
+      eraseButtonPressed = false;
+    } else if (buttons[i].id === "eraseButton") {
+      blackButtonPressed = false;
+      randomButtonPressed = false;
+      eraseButtonPressed = true;
+    } else {
+      blackButtonPressed = false;
+      randomButtonPressed = true;
+      eraseButtonPressed = false;
+    }
+  });
+}
+function creaetBoxes(numBox) {
+  // if no value was entered = defaults to 4
+  if (!numBox) {
+    numBox = 4;
+  }
 
-      blackButton.addEventListener('click', () => { 
-        blackButtonPressed = true 
-        randomButtonPressed = false 
-        eraseButtonPressed = false
-      });
+  container.style.gridTemplateColumns = `repeat(${numBox}, 1fr)`;
+  for (let i = 0; i < numBox * numBox; i++) {
+    const square = document.createElement("div");
+    square.classList.add("new");
+    container.appendChild(square);
+  }
+}
+creaetBoxes(gridSize);
 
-      eraseButton.addEventListener('click', () => { 
-        blackButtonPressed = false
-        randomButtonPressed = false 
-        eraseButtonPressed = true
-      });
+blackButton.addEventListener("click", () => {
+  blackButtonPressed = true;
+  randomButtonPressed = false;
+  eraseButtonPressed = false;
+  let squares = document.getElementsByClassName("new");
 
-      randomButton.addEventListener('click', () => { 
-        blackButtonPressed = false
-        randomButtonPressed = true
-        eraseButtonPressed = false
-      });
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("mouseenter", () => {
+      squares[i].style.backgroundColor = "black";
+    });
+  }
+});
 
+eraseButton.addEventListener("click", () => {
+  blackButtonPressed = false;
+  randomButtonPressed = false;
+  eraseButtonPressed = true;
 
-      function randomColor() {
-        rc = "#";
-        for (i = 0; i < 6; i++) {
-          rc += Math.floor(Math.random() * 16).toString(16);
-        }
-        return rc;
-      }
+  let squares = document.getElementsByClassName("new");
 
-    
-    
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("mouseenter", () => {
+      squares[i].style.backgroundColor = "white";
+    });
+  }
+});
+
+randomButton.addEventListener("click", () => {
+  blackButtonPressed = false;
+  randomButtonPressed = true;
+  eraseButtonPressed = false;
+
+  let squares = document.getElementsByClassName("new");
+
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("mouseenter", () => {
+      squares[i].style.backgroundColor = randomColor();
+    });
+  }
+});
