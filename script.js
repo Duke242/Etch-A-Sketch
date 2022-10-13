@@ -54,6 +54,13 @@ blackButton.addEventListener("click", () => {
   blackButtonPressed = true;
   randomButtonPressed = false;
   eraseButtonPressed = false;
+
+  if (randomButton) {
+    randomButton.classList.remove("selected");
+    eraseButton.classList.remove("selected");
+    blackButton.classList.add("selected");
+  }
+
   let squares = document.getElementsByClassName("new");
 
   for (let i = 0; i < squares.length; i++) {
@@ -68,6 +75,12 @@ eraseButton.addEventListener("click", () => {
   randomButtonPressed = false;
   eraseButtonPressed = true;
 
+  if (eraseButton) {
+    randomButton.classList.remove("selected");
+    eraseButton.classList.add("selected");
+    blackButton.classList.remove("selected");
+  }
+
   let squares = document.getElementsByClassName("new");
 
   for (let i = 0; i < squares.length; i++) {
@@ -81,6 +94,12 @@ randomButton.addEventListener("click", () => {
   blackButtonPressed = false;
   randomButtonPressed = true;
   eraseButtonPressed = false;
+
+  if (randomButton) {
+    randomButton.classList.add("selected");
+    eraseButton.classList.remove("selected");
+    blackButton.classList.remove("selected");
+  }
 
   let squares = document.getElementsByClassName("new");
 
